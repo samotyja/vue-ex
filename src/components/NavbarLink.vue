@@ -13,7 +13,7 @@
 
 <script>
 export default {
-  props: ['page', 'index', 'isActive'],
+  props: ['page', 'index'],
   computed: {},
 };
 </script>
