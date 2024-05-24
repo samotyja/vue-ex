@@ -28,7 +28,6 @@
             :key="index"
             :index="index"
             :page="page"
-            :isActive="activePage == index"
           >
           </navbar-link>
 
@@ -36,6 +35,7 @@
             <router-link
               to="/create"
               class="nav-link"
+              active-class="active"
               aria-current="page"
               >Create Page
             </router-link>
@@ -52,11 +52,21 @@ export default {
   components: {
     NavbarLink,
   },
-  props: ['pages', 'activePage'],
+
+  created() {
+    this.pages = this.$pages.getAllPages();
+  },
+
   computed: {
     publishedPages() {
       return this.pages.filter((p) => p.published);
     },
+  },
+
+  data() {
+    return {
+      pages: [],
+    };
   },
 };
 </script>
