@@ -1,19 +1,35 @@
 <template>
-  <p>{{ counter }}</p>
-  <button @click.prevent="click">Click me</button>
+  <h4>Pages</h4>
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Link Text</th>
+        <th>Is published</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        v-for="(page, index) in $pages.getAllPages()"
+        :key="index"
+      >
+        <td>{{ page.pageTitle }}</td>
+        <td>{{ page.link.text }}</td>
+        <td>{{ page.published ? 'yes' : 'no' }}</td>
+      </tr>
+    </tbody>
+  </table>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      counter: 0,
-    };
-  },
-  methods: {
-    click() {
-      this.counter++;
-    },
-  },
-};
+<script setup>
+import { ref, reactive, inject } from 'vue';
+
+//let counter = ref(0);
+let data = reactive({ counter: 0 });
+const $pages = inject('$pages');
+
+function click() {
+  //counter.value++;
+  data.counter++;
+}
 </script>

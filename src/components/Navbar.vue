@@ -52,7 +52,7 @@ export default {
   components: {
     NavbarLink,
   },
-
+  inject: ['$pages'],
   created() {
     this.pages = this.$pages.getAllPages();
   },
