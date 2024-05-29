@@ -71,18 +71,24 @@
         >
           Edit
         </button>
-        <button class="btn btn-secondary">Cancel</button>
+        <button
+          class="btn btn-secondary"
+          @click.prevent="goToPagesList"
+        >
+          Cancel
+        </button>
       </div>
     </div>
   </form>
 </template>
 
 <script setup>
-import { useRoute } from 'vue-router';
+import { useRouter } from 'vue-router';
 import { inject } from 'vue';
 
-const router = useRoute();
+const router = useRouter();
 const pages = inject('$pages');
+const bus = inject('$bus');
 
 const { index } = defineProps(['index']);
 
@@ -90,5 +96,13 @@ let page = pages.getSinglePage(index);
 
 function submit() {
   pages.editPage(index, page);
+
+  bus.$emit('page-updated', { index, page });
+
+  goToPagesList();
+}
+
+function goToPagesList() {
+  router.push({ path: '/pages' });
 }
 </script>
